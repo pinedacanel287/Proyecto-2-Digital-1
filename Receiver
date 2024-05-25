@@ -4,7 +4,7 @@ int receivedangle;
 int receivedspeed;
 const int DC = 9;
 
-Servo myServo;
+Servo myServo1;
 
 void setup()
 {
