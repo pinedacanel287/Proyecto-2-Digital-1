@@ -1,0 +1,23 @@
+const uint8_t Pot1 = A1;
+const uint8_t Pot2 = A2;
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  pinMode(Pot1, INPUT);
+  pinMode(Pot2, INPUT);
+}
+
+void loop()
+{
+  int angle = analogRead(Pot1);
+  int speed = analogRead(Pot2);
+  angle = map(angle, 0, 1023, 0, 45);
+  speed = map(speed, 0, 1023, 0, 10);
+  
+  Serial.print(angle);
+  Serial.print(",");
+  Serial.println(speed);
+  delay(500);
+}
