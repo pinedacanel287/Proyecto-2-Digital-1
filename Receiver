@@ -1,0 +1,27 @@
+#include <Servo.h>
+
+int receivedangle;
+int receivedspeed;
+const int DC = 9;
+
+Servo myServo;
+
+void setup()
+{
+  pinMode(DC, OUTPUT);
+  Serial.begin(9600);
+  myServo.attach(7);
+}
+
+void loop()
+{
+  if (Serial.available()>0) {
+    receivedangle = Serial.parseInt();
+    receivedspeed = Serial.parseInt();
+    Serial.println(receivedangle);
+    Serial.println(receivedspeed);
+    myServo.write(receivedangle);
+    analogWrite(DC, receivedspeed);
+    delay(500);
+  }
+}
