@@ -1,16 +1,22 @@
 #include <Servo.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,  16, 2);
 
 int receivedangle;
 int receivedspeed;
+String Car;
 const int DC = 9;
 
-Servo myServo1;
+Servo myServo;
 
 void setup()
 {
   pinMode(DC, OUTPUT);
   Serial.begin(9600);
   myServo.attach(7);
+  lcd.init();
+  lcd.backlight();
 }
 
 void loop()
@@ -18,10 +24,24 @@ void loop()
   if (Serial.available()>0) {
     receivedangle = Serial.parseInt();
     receivedspeed = Serial.parseInt();
+    if (receivedangle <= 45) {
+      Car="Izquierda";
+    }
+    else {
+      Car="Derecha";
+    } 
+
     Serial.println(receivedangle);
     Serial.println(receivedspeed);
     myServo.write(receivedangle);
     analogWrite(DC, receivedspeed);
+    lcd.print("VEL:");
+    lcd.print(receivedspeed);
+    lcd.setCursor(0, 1);
+    lcd.print("CAR:");
+    lcd.print(Car);
+    Serial.print(receivedangle);
     delay(500);
+    lcd.clear();
   }
 }
