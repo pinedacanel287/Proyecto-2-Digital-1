@@ -1,5 +1,6 @@
 const uint8_t Pot1 = A1;
 const uint8_t Pot2 = A2;
+int angle1, speed1;
 
 void setup()
 {
@@ -13,11 +14,11 @@ void loop()
 {
   int angle = analogRead(Pot1);
   int speed = analogRead(Pot2);
-  angle = map(angle, 0, 1023, 0, 45);
-  speed = map(speed, 0, 1023, 0, 10);
+  angle1 = map(angle, 0, 1023, 0, 45);
+  speed1 = map(speed, 0, 1023, 0, 10);
   
-  Serial.print(angle);
+  Serial.print(angle1);
   Serial.print(",");
-  Serial.println(speed);
+  Serial.println(speed1);
   delay(500);
 }
